@@ -1,0 +1,27 @@
+{
+  "name": "blogdoagi",
+  "version": "1.0.0",
+  "description": "Testes automatizados com Cypress para aplicação web.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "cy:open": "cypress open",
+    "cy:run": "cypress run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rsortica/blogdoagi.git"
+  },
+  "keywords": [],
+  "author": "Roseni Rodrigues",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/rsortica/blogdoagi/issues"
+  },
+  "homepage": "https://github.com/rsortica/blogdoagi#readme",
+  "devDependencies": {
+    "cypress": "^15.5.0"
+  }
+}
