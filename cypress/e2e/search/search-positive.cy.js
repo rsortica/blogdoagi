@@ -2,7 +2,7 @@
 // Feature: Busca positiva
 
 const HomePg = require('../../pages/HomePage');
-const SearchPg = require('../../pages/SearchPage');
+const SearchPg = require('../../pages/SearchResultsPage');
 const ArticlePg = require('../../pages/ArticlePage');
 
 describe('Search - positivo', () => {
@@ -10,6 +10,18 @@ describe('Search - positivo', () => {
 
   beforeEach(() => {
     home.visit();
+  });
+
+    // Verfica se o campo de busca não está visível no carregamento inicial da página
+  it('deve ocultar o campo de busca ao carregar a página', () => {
+    cy.get(home.searchInput).should('not.be.visible');
+  });
+
+  // Verifica se o ícone de busca tem atributos de acessibilidade via teclado e leitores de tela
+  it('deve ter atributos de acessibilidade no ícone de busca', () => {  
+    cy.get('a.astra-search-icon')
+      .should('have.attr', 'role', 'button')
+      .and('have.attr', 'aria-label', 'Search button');
   });
 
   it('@busca Deve buscar por termo existente e abrir primeiro resultado', () => {
