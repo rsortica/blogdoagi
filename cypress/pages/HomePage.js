@@ -31,7 +31,14 @@ class HomePage {
     this.paginationNext =
       'a[rel="next"], .pagination .next, .nav-links .next';
   }
-
+  /**
+   * Visita a página inicial (usa o baseUrl configurado em cypress.config.js)
+   */
+  visit() {
+    cy.visit('/');
+    return this;
+  }
+  
   /**
    * Verifica se o botão de busca existe e é clicável
    */
@@ -49,13 +56,7 @@ class HomePage {
   }
   
 
-  /**
-   * Visita a página inicial (usa o baseUrl configurado em cypress.config.js)
-   */
-  visit() {
-    cy.visit('/');
-    return this;
-  }
+
 
   /**
    * Realiza uma busca e retorna o objeto da página de resultados.

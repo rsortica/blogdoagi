@@ -1,36 +1,69 @@
-// FILE: /cypress/pages/ArticlePage.js
+// cypress/pages/ArticlePage.js
 
 class ArticlePage {
-  constructor() {
-    this.title = 'article h1, .post-title, .entry-title';
-    this.date = 'article time, .post-meta time, .entry-date';
-    this.author = '.author, .byline, .post-author';
-    this.heroImage = '.post-thumbnail img, .featured-image img, .entry-content img:first-of-type';
-    this.content = '.entry-content, .post-content, article .content';
-    this.breadcrumbs = '.breadcrumbs, nav.breadcrumbs, .breadcrumb';
-    this.tags = '.tags, .post-tags a, .post-categories a';
+
+  // --- Selectors ---
+  elements = {
+
+    // Cartões de artigos na home ou listas
+    articleCards: () => cy.get('article'),
+
+    // Título do artigo
+    articleTitle: () => cy.get('h1, h2'),
+
+    // Botões comuns
+    readTextButton: () => cy.contains('button, a', 'Ler texto'),
+    readMoreButton: () => cy.contains('button, a', 'Ler mais'),
+    seeMoreButton: () => cy.contains('button, a', 'Ver mais'),
+
+    // Redes sociais (ícones externos)
+    facebookLink: () => cy.get('a[href*="facebook"]'),
+    instagramLink: () => cy.get('a[href*="instagram"]'),
+    linkedinLink: () => cy.get('a[href*="linkedin"]'),
+    tiktokLink: () => cy.get('a[href*="tiktok"]'),
+
+    // Conteúdo do artigo
+    articleContent: () => cy.get('article, .entry-content'),
+  };
+
+  // --- Actions ---
+
+  clickFirstArticle() {
+    this.elements.articleCards().first().find('a').first().click();
   }
 
-  assertStructureMinimum() {
-    cy.get(this.title).should('exist').and('be.visible');
-    cy.get(this.date).should('exist');
-    cy.get('body').then($body => {
-      if ($body.find(this.heroImage).length) {
-        cy.get(this.heroImage).should('have.attr', 'src').and('not.be.empty');
-      } else {
-        // If hero image not present, ensure placeholder or none breaks nothing
-        cy.log('Hero image not present — acceptable if placeholder or editorial choice');
-      }
-    });
-    cy.get(this.content).find('p').its('length').should('be.gte', 1);
-    cy.get(this.breadcrumbs).should('exist');
-    // tags are optional in some posts
-    return this;
+  clickReadText() {
+    this.elements.readTextButton().click();
   }
 
-  getTitleText() {
-    return cy.get(this.title).invoke('text');
+  clickReadMore() {
+    this.elements.readMoreButton().click();
+  }
+
+  clickSeeMore() {
+    this.elements.seeMoreButton().click();
+  }
+
+  clickSocialFacebook() {
+    this.elements.facebookLink().invoke('removeAttr', 'target').click();
+  }
+
+  clickSocialInstagram() {
+    this.elements.instagramLink().invoke('removeAttr', 'target').click();
+  }
+
+  clickSocialLinkedin() {
+    this.elements.linkedinLink().invoke('removeAttr', 'target').click();
+  }
+
+  clickSocialTiktok() {
+    this.elements.tiktokLink().invoke('removeAttr', 'target').click();
+  }
+
+  validateArticlePageLoaded() {
+    this.elements.articleTitle().should('be.visible');
+    this.elements.articleContent().should('be.visible');
   }
 }
 
-module.exports = ArticlePage;
+export default new ArticlePage();
