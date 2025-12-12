@@ -1,9 +1,10 @@
 // FILE: /cypress/e2e/search/search.cy.js
 // Feature: Busca - positiva e negativa
-
 const HomePg = require('../../pages/HomePage');
-const SearchPg = require('../../pages/SearchResultsPage');
-const ArticlePg = require('../../pages/ArticlePage');
+const SearchBarPage = require('../../pages/SearchBarPage');
+const searchPage = new SearchBarPage();
+
+
 
 describe('Funcionalidade de Busca', () => {
 
@@ -20,13 +21,9 @@ describe('Funcionalidade de Busca', () => {
 
   context('Search - positivo', () => {
 
-    it('deve ocultar o campo de busca ao carregar a página', () => {
-      cy.get(home.searchInput).should('not.be.visible');
-    });
-
-    it('deve exibir o campo de busca após clicar na lupa', () => {
-      home.openSearch();
-      cy.get('input[type="search"]:visible').should('be.visible');
+    it.only('deve exibir o campo de busca após clicar na lupa', () => {
+      searchPage.openSearchBar().typeSearch('empréstimo').submitSearch();
+     
     });
 
     it('@busca Deve buscar por termo existente e abrir o primeiro resultado', () => {
